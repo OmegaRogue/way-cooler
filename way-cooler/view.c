@@ -39,7 +39,7 @@ static bool wc_is_view_at(struct wc_view *view, double lx, double ly,
 }
 
 void wc_view_get_outputs(struct wlr_output_layout *layout, struct wc_view *view,
-		struct wlr_output **out_outputs) {
+		struct wlr_output *out_outputs[4]) {
 	struct wlr_box geo = {0};
 	memcpy(&geo, &view->geo, sizeof(struct wlr_box));
 
