@@ -33,6 +33,8 @@ protocols not being present.
 Way Cooler is under active development. If you would like to contribute you can
 contact me best on [IRC][] (I also hang out on freenode).
 
+Work towards getting Way Cooler to build again is happening in `fix-wlroots-api`
+
 **Master is not usable for production**. There are old versions of Way Cooler
 that do work, however:
 
