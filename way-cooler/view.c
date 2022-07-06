@@ -233,6 +233,7 @@ void wc_view_commit(struct wc_view *view, struct wlr_box geo) {
 	uint32_t pending_serial = view->pending_serial;
 	switch (view->surface_type) {
 	case WC_XDG:
+		// TODO: what did xdg_surface->configure_serial do?
 		if (pending_serial > 0 &&
 				pending_serial >= view->xdg_surface->configure_serial) {
 			wc_view_damage_whole(view);
@@ -247,7 +248,7 @@ void wc_view_commit(struct wc_view *view, struct wlr_box geo) {
 			}
 
 			wc_view_damage_whole(view);
-
+			// TODO: what did xdg_surface->configure_serial do?
 			if (pending_serial == view->xdg_surface->configure_serial) {
 				view->pending_serial = 0;
 				view->is_pending_serial = false;

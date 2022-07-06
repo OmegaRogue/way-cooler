@@ -67,7 +67,7 @@ static void damage_surface_iterator(
 static void scissor_output(
 		struct wlr_output *wlr_output, pixman_box32_t *rect) {
 	struct wlr_renderer *renderer =
-			wlr_backend_get_renderer(wlr_output->backend);
+			wlr_renderer_autocreate(wlr_output->backend);
 	assert(renderer);
 
 	struct wlr_box box = {
@@ -179,7 +179,7 @@ static void wc_output_frame(struct wl_listener *listener, void *data) {
 	struct wc_server *server = output->server;
 	struct wlr_output *wlr_output = output->wlr_output;
 	struct wlr_renderer *renderer =
-			wlr_backend_get_renderer(wlr_output->backend);
+			wlr_renderer_autocreate(wlr_output->backend);
 	assert(renderer);
 
 	struct timespec now;

@@ -49,8 +49,8 @@ bool init_server(struct wc_server *server) {
 		return false;
 	}
 
-	server->backend = wlr_backend_autocreate(server->wl_display, NULL);
-	server->renderer = wlr_backend_get_renderer(server->backend);
+	server->backend = wlr_backend_autocreate(server->wl_display);
+	server->renderer = wlr_renderer_autocreate(server->backend);
 	wlr_renderer_init_wl_display(server->renderer, server->wl_display);
 	server->compositor =
 			wlr_compositor_create(server->wl_display, server->renderer);

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 #include <wayland-server.h>
-#include <wlr/types/wlr_box.h>
+#include <wlr/util/box.h>
 #include <wlr/types/wlr_layer_shell_v1.h>
 #include <wlr/types/wlr_output.h>
 #include <wlr/types/wlr_output_damage.h>
@@ -88,7 +88,7 @@ void wc_layer_shell_destroy(struct wl_listener *listener, void *data) {
 	wl_list_remove(&layer->unmap.link);
 	wl_list_remove(&layer->destroy.link);
 
-	wlr_layer_surface_v1_close(layer->layer_surface);
+	wlr_layer_surface_v1_destroy(layer->layer_surface);
 	free(layer);
 }
 
@@ -162,7 +162,7 @@ static void wc_arrange_layer(struct wc_output *output, struct wc_seat *seat,
 		if (arranged_area.width < 0 || arranged_area.height < 0) {
 			wlr_log(WLR_ERROR, "Bad width/height: %d, %d", arranged_area.width,
 					arranged_area.height);
-			wlr_layer_surface_v1_close(layer);
+			wlr_layer_surface_v1_destroy(layer);
 			continue;
 		}
 
@@ -238,7 +238,7 @@ static void wc_layer_shell_new_surface(
 	struct wlr_layer_surface_v1 *layer_surface = data;
 	struct wc_output *active_output = wc_get_active_output(server);
 	if (active_output == NULL) {
-		wlr_layer_surface_v1_close(layer_surface);
+		wlr_layer_surface_v1_destroy(layer_surface);
 		return;
 	}
 
@@ -265,13 +265,13 @@ static void wc_layer_shell_new_surface(
 	if (layer_surface->current.layer >= len) {
 		wlr_log(WLR_ERROR, "Bad surface layer %d",
 				layer_surface->current.layer);
-		wlr_layer_surface_v1_close(layer_surface);
+		wlr_layer_surface_v1_destroy(layer_surface);
 		return;
 	}
 	wl_list_insert(&output->layers[layer_surface->current.layer], &layer->link);
 
 	struct wlr_layer_surface_v1_state old_state = layer_surface->current;
-	layer_surface->current = layer_surface->client_pending;
+	layer_surface->current = layer_surface->pending;
 	wc_layer_shell_arrange_layers(output);
 	layer_surface->current = old_state;
 }

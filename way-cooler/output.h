@@ -2,7 +2,7 @@
 #define WC_OUTPUT_H
 
 #include <wayland-server.h>
-#include <wlr/types/wlr_box.h>
+#include <wlr/util/box.h>
 #include <wlr/types/wlr_output.h>
 #include <wlr/types/wlr_output_damage.h>
 

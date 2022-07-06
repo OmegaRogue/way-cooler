@@ -2,7 +2,7 @@
 #define WC_CURSOR_H
 
 #include <wayland-server.h>
-#include <wlr/types/wlr_box.h>
+#include <wlr/util/box.h>
 #include <wlr/types/wlr_cursor.h>
 #include <wlr/types/wlr_seat.h>
 
